@@ -16,7 +16,19 @@ void Inputdata(){
 }
 
 int Solve(){
-    
+    int time=0;
+
+    for(int i=0; i<T; i++){
+        if (time>211){
+            break;
+        }
+
+        if (C[i]=='T'){
+            time += N[i];
+        }
+    }
+
+    return time;
 }
 
 int main(){
