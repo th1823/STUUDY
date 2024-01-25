@@ -41,8 +41,6 @@ int sol(){
  
 }
  
- 
- 
 int main(){
     int ans = -1;
     InputData();
