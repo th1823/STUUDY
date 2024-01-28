@@ -1,51 +1,46 @@
 #include <iostream>
-#include <cstring>
+#include <deque>
+
 using namespace std;
- 
+
 int N, P;
+deque<int> queue;
+
 void InputData(){
     cin >> N >> P;
 }
-int remainder[97];
 
-int count_parent(int k){
-    int t = 1;
-    int beg = k;
-    int index = k;
-    while(remainder[index] != beg){
-        index = remainder[index];
-        t+=1;
+int check(int num){
+    for(int i=0; i<queue.size(); i++){
+        if (queue[i] == num){
+            return i+1;
+        }
     }
- 
-    return t;
- 
+    return 0;
 }
- 
-int sol(){
-    // initialize remainder array
-    memset(remainder, -1, sizeof(remainder));
-    int k = N;
+
+int solve(){
+    int temp = N;
+    int index = 0;
     while(1){
-        int new_k = (k*N) % P;
-         
-        if (remainder[new_k] == k){
-            // found common part
-            return count_parent(new_k);
-        }
-        else{
-            remainder[new_k] = k;
-            k = new_k;
-        }
- 
-    }
- 
-}
- 
-int main(){
-    int ans = -1;
-    InputData();
+        temp = temp * N;
+        temp %= P;
+        //cout << "Temp : " << temp << endl;
+        index = check(temp);
 
-    ans = sol();
-    cout << ans << endl;
+        if (index!=0){
+            break;
+        }
+        queue.push_back(temp);
+    }
+    return index;
+}
+
+int main(){
+    InputData();// 입력받는 부분
+
+    int index = solve();
+
+    cout << queue.size() - index + 1 << endl;// 출력하는 부분
     return 0;
 }
